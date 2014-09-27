@@ -1,0 +1,20 @@
+{
+    "name": "crysalead/collection",
+    "description": "Collection library",
+    "keywords": ["Collection"],
+    "license": "MIT",
+    "require": {
+        "php": ">=5.4",
+        "crysalead/kahlan": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "collection\\": "src/",
+            "collection\\spec\\": "spec/"
+        }
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "minimum-stability": "dev"
+}
