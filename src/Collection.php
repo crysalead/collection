@@ -15,7 +15,7 @@ use InvalidArgumentException;
  * $coll[] = 'foo';
  * // $coll[0] --> 'foo'
  *
- * $coll = new Collection(['data' => ['foo']]);
+ * $coll = new Collection(['foo']);
  * // $coll[0] --> 'foo'
  *
  * $array = iterator_to_array($coll);
@@ -53,11 +53,11 @@ use InvalidArgumentException;
  *     }
  * }
  *
- * $tasks = new Collection(['data' => [
+ * $tasks = new Collection([
  *     new Task(['id' => 'task1']),
  *     new Task(['id' => 'task2']),
  *     new Task(['id' => 'task3'])
- * ]]);
+ * ]);
  *
  * // $result will contain an array, and each element will be the return
  * // value of a run() method call:
@@ -79,7 +79,7 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
      *
      * Note: the edge effet of this behavior is the following:
      * {{{
-     *   $collection = new Collection(['data' => ['1', '2', '3']]);
+     *   $collection = new Collection(['1', '2', '3']);
      *   unset($collection[0]);
      *   $collection->next();   // returns 2 instead of 3 when no `skipNext`
      * }}}
@@ -99,11 +99,10 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
     /**
      * Handles dispatching of methods against all items in the collection.
      *
-     * @param string $method The name of the method to call on each instance in the collection.
-     * @param mixed  $params The parameters to pass on each method call.
-     *
-     * @return mixed Returns either an array of the return values of the methods, or the return
-     *               values wrapped in a `Collection` instance.
+     * @param  string $method The name of the method to call on each instance in the collection.
+     * @param  mixed  $params The parameters to pass on each method call.
+     * @return mixed  Returns either an array of the return values of the methods, or the return
+     *                values wrapped in a `Collection` instance.
      */
     public function invoke($method, $params = [])
     {
@@ -121,9 +120,8 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
     /**
      * Checks whether or not an offset exists.
      *
-     * @param string  $offset An offset to check for.
-     *
-     * @return boolean `true` if offset exists, `false` otherwise.
+     * @param  string  $offset An offset to check for.
+     * @return boolean         Returns `true` if offset exists, `false` otherwise.
      */
     public function offsetExists($offset)
     {
@@ -133,9 +131,8 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
     /**
      * Returns the value at specified offset.
      *
-     * @param string $offset The offset to retrieve.
-     *
-     * @return mixed Value at offset.
+     * @param  string $offset The offset to retrieve.
+     * @return mixed          The value at offset.
      */
     public function offsetGet($offset)
     {
@@ -145,10 +142,9 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
     /**
      * Assigns a value to the specified offset.
      *
-     * @param string $offset The offset to assign the value to.
-     * @param mixed  $value The value to set.
-     *
-     * @return mixed The value which was set.
+     * @param  string $offset The offset to assign the value to.
+     * @param  mixed  $value  The value to set.
+     * @return mixed          The value which was set.
      */
     public function offsetSet($offset, $value)
     {
@@ -172,10 +168,9 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
     /**
      * Merge another collection to this collection.
      *
-     * @param mixed   A collection.
-     * @param boolean If `true` use the key value as a hash to avoid duplicates.
-     *
-     * @return Collection Return the merged collection.
+     * @param  mixed   $collection   A collection.
+     * @param  boolean $preserveKeys If `true` use the key value as a hash to avoid duplicates.
+     * @return object                Return the merged collection.
      */
     public function merge($collection, $preserveKeys = false) {
         foreach($collection as $key => $value) {
@@ -235,10 +230,9 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
     }
 
     /**
-     * Moves backward to the previous item.  If already at the first item,
-     * moves to the last one.
+     * Moves backward to the previous item.
      *
-     * @return mixed The current item after moving or the last item on failure.
+     * @return mixed The previous item.
      */
     public function prev()
     {
@@ -247,9 +241,9 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
     }
 
     /**
-     * Move forwards to the next item.
+     * Moves forward to the next item.
      *
-     * @return The current item after moving or `false` on failure.
+     * @return mixed The next item.
      */
     public function next()
     {
@@ -261,7 +255,7 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
     /**
      * Alias to `::rewind()`.
      *
-     * @return mixed The current item after rewinding.
+     * @return mixed The first item.
      */
     public function first()
     {
@@ -281,7 +275,7 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
     /**
      * Moves forward to the last item.
      *
-     * @return mixed The current item after moving.
+     * @return mixed The last item.
      */
     public function end()
     {
@@ -311,9 +305,8 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
     /**
      * Filters a copy of the items in the collection.
      *
-     * @param mixed $filter The callback to use for filtering, or an array of key/value pairs to match.
-     *
-     * @return mixed Returns a collection of the filtered items.
+     * @param  mixed $filter The callback to use for filtering, or an array of key/value pairs to match.
+     * @return mixed         A collection of the filtered items.
      */
     public function find($filter)
     {
@@ -325,9 +318,8 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
     /**
      * Applies a callback to all items in the collection.
      *
-     * @param callback $callback The callback to apply.
-     *
-     * @return object   This collection instance.
+     * @param  callback $callback The callback to apply.
+     * @return object             This collection instance.
      */
     public function each($callback)
     {
@@ -341,9 +333,8 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
      * Applies a callback to a copy of all data in the collection
      * and returns the result.
      *
-     * @param callback $callback The callback to apply.
-     *
-     * @return mixed    Returns the set of filtered values inside a `Collection`.
+     * @param  callback $callback The callback to apply.
+     * @return mixed              The set of filtered values inside a `Collection`.
      */
     public function map($callback)
     {
@@ -354,10 +345,9 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
     /**
      * Reduce, or fold, a collection down to a single value
      *
-     * @param callback $filter The filter to apply.
-     * @param mixed    $initial Initial value.
-     *
-     * @return mixed A single reduced value.
+     * @param  callback $filter  The filter to apply.
+     * @param  mixed    $initial Initial value.
+     * @return mixed             A single reduced value.
      */
     public function reduce($filter, $initial = null)
     {
@@ -371,9 +361,8 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
      * Keys have to be preserved by this method. Calling this method will only return the
      * selected slice and NOT change the elements contained in the collection slice is called on.
      *
-     * @param integer $offset The offset value.
-     * @param integer $length The number of element to extract
-     *
+     * @param  integer $offset The offset value.
+     * @param  integer $length The number of element to extract
      * @return array
      */
     public function slice($offset, $length = null, $preserveKeys = true) {
@@ -384,14 +373,14 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
     /**
      * Sorts the objects in the collection.
      *
-     * @param callback $callback A compare function like strcmp or a custom closure. The
-     *                 comparison function must return an integer less than, equal to, or
-     *                 greater than zero if the first argument is considered to be respectively
-     *                 less than, equal to, or greater than the second.
-     * @param string   $sorter The type of sorting, can be any sort function like `asort`,
-     *                 'uksort', or `natsort`.
+     * @param  callback $callback A compare function like strcmp or a custom closure. The
+     *                            comparison function must return an integer less than, equal to, or
+     *                            greater than zero if the first argument is considered to be respectively
+     *                            less than, equal to, or greater than the second.
+     * @param  string   $sorter   The type of sorting, can be any sort function like `asort`,
+     *                            'uksort', or `natsort`.
      *
-     * @return Collection Return `$this`.
+     * @return object             The collection instance.
      */
     public function sort($callback = null, $sorter = null) {
         if (!$sorter) {
@@ -400,23 +389,22 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
         if (!is_callable($sorter)) {
             throw new InvalidArgumentException("The passed parameter is not a valid sort function.");
         }
-        $data = $this->_data;
-        $callback === null ? $sorter($data) : $sorter($data, $callback);
-        return new static($data);
+        $callback === null ? $sorter($this->_data) : $sorter($this->_data, $callback);
+        return $this;
     }
 
     /**
      * Exports a `Collection` instance to an array. Used by `Collection::to()`.
      *
-     * @param mixed $data Either a `Collection` instance, or an array representing a
-     *              `Collection`'s internal state.
-     * @param array $options Options used when converting `$data` to an array:
-     *              - `'handlers'` _array_: An array where the keys are fully-namespaced class
-     *              names, and the values are closures that take an instance of the class as a
-     *              parameter, and return an array or scalar value that the instance represents.
+     * @param  mixed $data    Either a `Collection` instance, or an array representing a
+     *                        `Collection`'s internal state.
+     * @param  array $options Options used when converting `$data` to an array:
+     *                        - `'handlers'` _array_: An array where the keys are fully-namespaced class
+     *                        names, and the values are closures that take an instance of the class as a
+     *                        parameter, and return an array or scalar value that the instance represents.
      *
-     * @return array Returns the value of `$data` as a pure PHP array, recursively converting all
-     *               sub-objects and other values to their closest array or scalar equivalents.
+     * @return array         The value of `$data` as a pure PHP array, recursively converting all
+     *                       sub-objects and other values to their closest array or scalar equivalents.
      */
     public static function toArray($data, array $options = [])
     {
