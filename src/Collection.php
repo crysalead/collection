@@ -207,6 +207,16 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
     }
 
     /**
+     * Exports the collection as an array.
+     *
+     * @return array
+     */
+    public function data()
+    {
+        return static::toArray($this);
+    }
+
+    /**
      * Returns the key of the current item.
      *
      * @return scalar Scalar on success or `null` on failure.

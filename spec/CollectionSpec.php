@@ -339,6 +339,23 @@ describe("Collection", function() {
 
     });
 
+    describe("data", function() {
+
+        it("delegates to `::toArray`", function() {
+
+            $data = [
+                'key1' => 'one',
+                'key2' => 'two',
+                'key3' => 'three'
+            ];
+            $collection = new Collection($data);
+
+            expect('collection\Collection')->toReceive('::toArray')->with($collection);
+            $collection->data();
+        });
+
+    });
+
     describe("key", function() {
 
         it("returns current key", function() {
