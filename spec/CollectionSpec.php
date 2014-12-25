@@ -468,16 +468,67 @@ describe("Collection", function() {
 
     });
 
-    describe("toArray", function() {
+    describe("formats", function() {
+
+        it("gets registered formats", function() {
+            Collection::formats('json', function() {});
+            expect(array_keys(Collection::formats()))->toBe(['array', 'json']);
+        });
+
+        it("removes a specific registered formats", function() {
+            Collection::formats('json', function() {});
+            Collection::formats('json', false);
+
+            expect(array_keys(Collection::formats()))->toBe(['array']);
+        });
+
+        it("removes all registered formats", function() {
+            Collection::formats('json', function() {});
+            Collection::formats(false);
+
+            expect(array_keys(Collection::formats()))->toBe(['array']);
+        });
+    });
+
+    describe("to", function() {
 
         it("converts a collection to an array", function() {
 
             $collection = new Collection([
                 1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5
             ]);
-            expect(Collection::toArray($collection))->toBe([
+            expect($collection->to('array', ['key' => false]))->toBe([1, 2, 3, 4, 5]);
+
+        });
+
+        it("converts a collection to an array by preserving keys", function() {
+
+            $collection = new Collection([
                 1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5
             ]);
+            $result = $collection->to('array');
+            expect($result)->toBe([1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5]);
+
+        });
+
+        it("converts according a registered closure", function() {
+
+            $collection = new Collection([1, 2, 3]);
+            Collection::formats('json', function($collection) {
+                return json_encode($collection->to('array'));
+            });
+
+            expect($collection->to('json'))->toBe("[1,2,3]");
+
+        });
+
+        it("converts according a closure", function() {
+
+            $collection = new Collection(['hello', 'world', '!']);
+            $result = $collection->to(function($collection) {
+                return join(' ', $collection->to('array'));
+            });
+            expect($result)->toBe('hello world !');
 
         });
 
@@ -487,7 +538,7 @@ describe("Collection", function() {
             Stub::on($stringable)->method('__toString')->andReturn('hello');
             $collection = new Collection([new $stringable()]);
 
-            expect(Collection::toArray($collection))->toBe(['hello']);
+            expect($collection->to('array'))->toBe(['hello']);
 
         });
 
@@ -497,31 +548,39 @@ describe("Collection", function() {
             $handlers = [$handlable => function($value) { return 'world'; }];
             $collection = new Collection([new $handlable()]);
 
-            expect(Collection::toArray($collection, compact('handlers')))->toBe(['world']);
+            expect($collection->to('array', compact('handlers')))->toBe(['world']);
 
         });
 
         it("doesn't convert unsupported objects", function() {
 
             $collection = new Collection([(object) 'an object']);
-            expect(Collection::toArray($collection))->toEqual([(object) 'an object']);
+            expect($collection->to('array'))->toEqual([(object) 'an object']);
 
         });
 
         it("converts nested collections", function() {
 
             $collection = new Collection([1, 2, 3, new Collection([4, 5, 6])]);
-            expect(Collection::toArray($collection))->toBe([1, 2, 3, [4, 5, 6]]);
+            expect($collection->to('array'))->toBe([1, 2, 3, [4, 5, 6]]);
 
         });
 
         it("converts mixed nested collections & arrays", function() {
 
             $collection = new Collection([1, 2, 3, [new Collection([4, 5, 6])]]);
-            expect(Collection::toArray($collection))->toBe([1, 2, 3, [[4, 5, 6]]]);
+            expect($collection->to('array'))->toBe([1, 2, 3, [[4, 5, 6]]]);
 
         });
 
+        it("throws an exception with unsupported format", function() {
+            $closure = function() {
+                $collection = new Collection();
+                $collection->to('xml');
+            };
+
+            expect($closure)->toThrow(new InvalidArgumentException("Unsupported format `xml`."));
+        });
     });
 
 });
