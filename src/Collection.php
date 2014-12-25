@@ -4,39 +4,36 @@ namespace collection;
 use InvalidArgumentException;
 
 /**
- * The parent class for all collection objects. Contains methods for collection iteration,
- * conversion, and filtering. Implements `ArrayAccess`, `Iterator`, and `Countable`.
+ * `Collection` class.
  *
- * `Collection` objects can act very much like arrays. This is especially evident in creating new
- * objects, or by converting `Collection` into an actual array:
- *
+ * Example of usage:
  * {{{
- * $coll = new Collection();
- * $coll[] = 'foo';
- * // $coll[0] --> 'foo'
+ * $collection = new Collection();
+ * $collection[] = 'foo';
+ * // $collection[0] --> 'foo'
  *
- * $coll = new Collection(['foo']);
- * // $coll[0] --> 'foo'
+ * $collection = new Collection(['foo']);
+ * // $collection[0] --> 'foo'
  *
- * $array = iterator_to_array($coll);
+ * $array = iterator_to_array($collection);
  * }}}
  *
  * Apart from array-like data access, `Collection`s enable terse and expressive
  * filtering and iteration:
  *
  * {{{
- * $coll = new Collection([0, 1, 2, 3, 4]);
+ * $collection = new Collection([0, 1, 2, 3, 4]);
  *
- * $coll->first();   // 0
- * $coll->current(); // 0
- * $coll->next();    // 1
- * $coll->next();    // 2
- * $coll->next();    // 3
- * $coll->prev();    // 2
- * $coll->rewind();  // 0
+ * $collection->first();   // 0
+ * $collection->current(); // 0
+ * $collection->next();    // 1
+ * $collection->next();    // 2
+ * $collection->next();    // 3
+ * $collection->prev();    // 2
+ * $collection->rewind();  // 0
  * }}}
  *
- * The primary purpose of the `Collection` class is to enable simple, efficient access to groups
+ * The purpose of the `Collection` class is to enable simple, efficient access to groups
  * of similar objects, and to perform operations against these objects using anonymous functions.
  *
  * The `map()` and `each()` methods allow you to perform operations against the entire set of values
@@ -81,7 +78,7 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
      * {{{
      *   $collection = new Collection(['1', '2', '3']);
      *   unset($collection[0]);
-     *   $collection->next();   // returns 2 instead of 3 when no `skipNext`
+     *   $collection->next();   // returns 2 instead of 3
      * }}}
      */
     protected $_skipNext = false;
