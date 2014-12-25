@@ -128,7 +128,8 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
      *                         a fully namespaced class method or `false` to remove the `$format` handler.
      * @return mixed
      */
-    public static function formats($format = null, $handler = null) {
+    public static function formats($format = null, $handler = null)
+    {
         if ($format === null) {
             return static::$_formats;
         }
@@ -218,7 +219,8 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
      * @param  boolean $preserveKeys If `true` use the key value as a hash to avoid duplicates.
      * @return object                Return the merged collection.
      */
-    public function merge($collection, $preserveKeys = false) {
+    public function merge($collection, $preserveKeys = false)
+    {
         foreach($collection as $key => $value) {
             $preserveKeys ? $this->_data[$key] = $value : $this->_data[] = $value;
         }
@@ -354,7 +356,8 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
      *
      * @return integer Returns the number of items in the collection.
      */
-    public function count() {
+    public function count()
+    {
         return count($this->_data);
     }
 
@@ -421,7 +424,8 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
      * @param  integer $length The number of element to extract
      * @return array
      */
-    public function slice($offset, $length = null, $preserveKeys = true) {
+    public function slice($offset, $length = null, $preserveKeys = true)
+    {
         $data = array_slice($this->_data, $offset, $length, $preserveKeys);
         return new static($data);
     }
@@ -437,7 +441,8 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
      *                            'uksort', or `natsort`.
      * @return object             The collection instance.
      */
-    public function sort($callback = null, $sorter = null) {
+    public function sort($callback = null, $sorter = null)
+    {
         if (!$sorter) {
             $sorter = $callback === null ? 'sort' : 'usort';
         }
@@ -467,7 +472,8 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
      * @param  array  $options Options for converting the collection.
      * @return mixed           The converted collection.
      */
-    public function to($format, $options = []) {
+    public function to($format, $options = [])
+    {
         if (!is_string($format) || !isset(static::$_formats[$format])) {
             if (is_callable($format)) {
                 return $format($this, $options);
