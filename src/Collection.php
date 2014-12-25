@@ -200,11 +200,11 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
     }
 
     /**
-     * Gets the raw array value of the `Collection`.
+     * Returns the `$_data` attribute of the collection.
      *
-     * @return array Returns an "unboxed" array of the `Collection`'s value.
+     * @return array
      */
-    public function raw()
+    public function plain()
     {
         return $this->_data;
     }

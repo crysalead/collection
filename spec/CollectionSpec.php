@@ -323,9 +323,9 @@ describe("Collection", function() {
 
     });
 
-    describe("raw", function() {
+    describe("plain", function() {
 
-        it("returns the raw data", function() {
+        it("returns the plain array", function() {
 
             $data = [
                 'key1' => 'one',
@@ -333,7 +333,7 @@ describe("Collection", function() {
                 'key3' => 'three'
             ];
             $collection = new Collection($data);
-            expect($collection->raw())->toBe($data);
+            expect($collection->plain())->toBe($data);
 
         });
 
