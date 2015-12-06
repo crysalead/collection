@@ -1,5 +1,5 @@
 <?php
-namespace collection;
+namespace Lead\Collection;
 
 use InvalidArgumentException;
 
@@ -70,7 +70,7 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
      * @var array
      */
     protected static $_formats = [
-        'array' => 'collection\Collection::toArray'
+        'array' => 'Lead\Collection\Collection::toArray'
     ];
 
     /**
@@ -122,7 +122,7 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
      * Collection::formats('json', 'my\custom\Formatter::toJson');
      * ```
      *
-     * @see    collection\Collection::to()
+     * @see    Lead\Collection\Collection::to()
      * @param  string $format  A string representing the name of the format that a `Collection`
      *                         can be converted to. If `false`, reset the `$_formats` attribute.
      *                         If `null` return the content of the `$_formats` attribute.
@@ -136,7 +136,7 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
             return static::$_formats;
         }
         if ($format === false) {
-            return static::$_formats = ['array' => 'collection\Collection::toArray'];
+            return static::$_formats = ['array' => 'Lead\Collection\Collection::toArray'];
         }
         if ($handler === false) {
             unset(static::$_formats[$format]);

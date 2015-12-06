@@ -1,9 +1,10 @@
 <?php
-namespace collection\spec\util;
+namespace Lead\Collection\Spec\Suite;
 
 use InvalidArgumentException;
-use collection\Collection;
-use kahlan\plugin\Stub;
+use Lead\Collection\Collection;
+
+use Kahlan\Plugin\Stub;
 
 describe("Collection", function() {
 
@@ -74,7 +75,7 @@ describe("Collection", function() {
             $filter = function($item) { return $item === 1; };
 
             $result = $collection->find($filter);
-            expect($result)->toBeAnInstanceOf('collection\Collection');
+            expect($result)->toBeAnInstanceOf('Lead\Collection\Collection');
             expect($result->values())->toBe(array_fill(0, 10, 1));
 
         });
@@ -350,7 +351,7 @@ describe("Collection", function() {
             ];
             $collection = new Collection($data);
 
-            expect('collection\Collection')->toReceive('::toArray')->with($collection);
+            expect('Lead\Collection\Collection')->toReceive('::toArray')->with($collection);
             $collection->data();
         });
 
