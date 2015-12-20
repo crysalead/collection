@@ -501,6 +501,21 @@ describe("Collection", function() {
         });
     });
 
+    describe("->clear()", function() {
+
+        it("clears up the collection", function() {
+
+            $collection = new Collection(['data' => [1, 2, 3]]);
+            expect($collection->values())->toBe([1, 2, 3]);
+
+            $collection->clear();
+            expect($collection->values())->toBe([]);
+
+        });
+
+    });
+
+
     describe("->to()", function() {
 
         it("converts a collection to an array", function() {

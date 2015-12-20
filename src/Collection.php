@@ -498,6 +498,14 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
     }
 
     /**
+     * Clears up the `Collection`.
+     */
+    public function clear()
+    {
+        $this->_data = [];
+    }
+
+    /**
      * Exports a `Collection` instance to an array.
      *
      * @param  mixed $data    Either a `Collection` instance, or an array representing a
