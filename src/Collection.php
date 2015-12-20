@@ -97,11 +97,9 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
      *
      * @param array $data The data
      */
-    public function __construct($config = [])
+    public function __construct($data = [])
     {
-        if (isset($config['data'])) {
-            $this->_data = $config['data'];
-        }
+        $this->_data = $data;
     }
 
     /**
@@ -163,7 +161,7 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
             $data[$key] = call_user_func_array([$object, $method], $callParams);
         }
 
-        return new static(compact('data'));
+        return new static($data);
     }
 
     /**
@@ -384,7 +382,7 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
     {
         $callback = is_array($filter) ? $this->_filterFromArray($filter) : $filter;
         $data = array_filter($this->_data, $callback);
-        return new static(compact('data'));
+        return new static($data);
     }
 
     /**
@@ -411,7 +409,7 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
     public function map($callback)
     {
         $data = array_map($callback, $this->_data);
-        return new static(compact('data'));
+        return new static($data);
     }
 
     /**
@@ -440,7 +438,7 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
     public function slice($offset, $length = null, $preserveKeys = true)
     {
         $data = array_slice($this->_data, $offset, $length, $preserveKeys);
-        return new static(compact('data'));
+        return new static($data);
     }
 
     /**
