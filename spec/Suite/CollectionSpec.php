@@ -8,7 +8,7 @@ use Kahlan\Plugin\Stub;
 
 describe("Collection", function() {
 
-    describe("__construct", function() {
+    describe("->__construct()", function() {
 
         it("loads the data variable", function() {
 
@@ -20,7 +20,7 @@ describe("Collection", function() {
 
     });
 
-    describe("invoke", function() {
+    describe("->invoke()", function() {
 
         beforeEach(function() {
             $this->collection = new Collection();
@@ -48,7 +48,7 @@ describe("Collection", function() {
 
     });
 
-    describe("each", function() {
+    describe("->each()", function() {
 
         it("applies a filter on a collection", function() {
 
@@ -63,7 +63,7 @@ describe("Collection", function() {
 
     });
 
-    describe("find", function() {
+    describe("->find()", function() {
 
         it("extracts items from a collection according a filter", function() {
 
@@ -82,7 +82,7 @@ describe("Collection", function() {
 
     });
 
-    describe("map", function() {
+    describe("->map()", function() {
 
         it("applies a Closure to a copy of all data in the collection", function() {
 
@@ -97,7 +97,7 @@ describe("Collection", function() {
 
     });
 
-    describe("reduce", function() {
+    describe("->reduce()", function() {
 
         it("reduces a collection down to a single value", function() {
 
@@ -111,7 +111,7 @@ describe("Collection", function() {
 
     });
 
-    describe("slice", function() {
+    describe("->slice()", function() {
 
         it("extracts a slice of items", function() {
 
@@ -125,7 +125,7 @@ describe("Collection", function() {
 
     });
 
-    describe("sort", function() {
+    describe("->sort()", function() {
 
         it("sorts a collection", function() {
 
@@ -164,7 +164,7 @@ describe("Collection", function() {
 
     });
 
-    describe("offsetExists", function() {
+    describe("->offsetExists()", function() {
 
         it("returns true if a element exist", function() {
 
@@ -186,7 +186,7 @@ describe("Collection", function() {
 
     });
 
-    describe("offsetSet/offsetGet", function() {
+    describe("->offsetSet()/->offsetGet()", function() {
 
         it("allows array access", function() {
 
@@ -208,7 +208,7 @@ describe("Collection", function() {
 
     });
 
-    describe("offsetUnset", function() {
+    describe("->offsetUnset()", function() {
 
         it("unsets items", function() {
 
@@ -294,7 +294,7 @@ describe("Collection", function() {
 
     });
 
-    describe("keys", function() {
+    describe("->keys()", function() {
 
         it("returns the item keys", function() {
 
@@ -309,7 +309,7 @@ describe("Collection", function() {
 
     });
 
-    describe("values", function() {
+    describe("->values()", function() {
 
         it("returns the item values", function() {
 
@@ -324,7 +324,7 @@ describe("Collection", function() {
 
     });
 
-    describe("plain", function() {
+    describe("->plain()", function() {
 
         it("returns the plain array", function() {
 
@@ -340,7 +340,7 @@ describe("Collection", function() {
 
     });
 
-    describe("data", function() {
+    describe("->data()", function() {
 
         it("delegates to `::toArray`", function() {
 
@@ -357,7 +357,7 @@ describe("Collection", function() {
 
     });
 
-    describe("key", function() {
+    describe("->key()", function() {
 
         it("returns current key", function() {
 
@@ -369,7 +369,7 @@ describe("Collection", function() {
 
     });
 
-    describe("current", function() {
+    describe("->current()", function() {
 
         it("returns current value", function() {
 
@@ -381,7 +381,7 @@ describe("Collection", function() {
 
     });
 
-    describe("prev/next", function() {
+    describe("->prev()/->next()", function() {
 
         it("returns prev value", function() {
 
@@ -399,7 +399,7 @@ describe("Collection", function() {
 
     });
 
-    describe("first/rewind/end", function() {
+    describe("->first()/->rewind()/->end()", function() {
 
         it("returns respectively the first and the last item of the collection", function() {
 
@@ -413,7 +413,7 @@ describe("Collection", function() {
 
     });
 
-    describe("valid", function() {
+    describe("->valid()", function() {
 
         it("returns true only when the collection is valid", function() {
 
@@ -427,7 +427,7 @@ describe("Collection", function() {
 
     });
 
-    describe("count", function() {
+    describe("->count()", function() {
 
         it("returns 0 on empty", function() {
 
@@ -445,7 +445,7 @@ describe("Collection", function() {
 
     });
 
-    describe("merge", function() {
+    describe("->merge()", function() {
 
         it("merges two collection", function() {
 
@@ -469,7 +469,7 @@ describe("Collection", function() {
 
     });
 
-    describe("formats", function() {
+    describe("->formats()", function() {
 
         it("gets registered formats", function() {
 
@@ -497,7 +497,7 @@ describe("Collection", function() {
         });
     });
 
-    describe("to", function() {
+    describe("->to()", function() {
 
         it("converts a collection to an array", function() {
 
