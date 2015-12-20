@@ -215,13 +215,24 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
     }
 
     /**
-     * Merge another collection to this collection.
+     * Appends another collection to this collection.
+     *
+     * @param  mixed   $collection   A collection.
+     * @return object                Return the merged collection.
+     */
+    public function append($collection)
+    {
+        $this->merge($collection, $preserveKeys = false);
+    }
+
+    /**
+     * Merges another collection to this collection.
      *
      * @param  mixed   $collection   A collection.
      * @param  boolean $preserveKeys If `true` use the key value as a hash to avoid duplicates.
      * @return object                Return the merged collection.
      */
-    public function merge($collection, $preserveKeys = false)
+    public function merge($collection, $preserveKeys = true)
     {
         foreach($collection as $key => $value) {
             $preserveKeys ? $this->_data[$key] = $value : $this->_data[] = $value;

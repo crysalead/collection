@@ -447,23 +447,27 @@ describe("Collection", function() {
 
     describe("->merge()", function() {
 
-        it("merges two collection", function() {
+        it("merges two collection with key preservation", function() {
 
             $collection = new Collection(['data' => [1, 2, 3]]);
             $collection2 = new Collection(['data' => [4, 5, 6, 7]]);
             $collection->merge($collection2);
 
-            expect($collection->values())->toBe([1, 2, 3, 4, 5, 6, 7]);
+            expect($collection->values())->toBe([4, 5, 6, 7]);
 
         });
 
-        it("merges two collection with key preservation", function() {
+    });
+
+    describe("->append()", function() {
+
+        it("appends two collection with no key preservation", function() {
 
             $collection = new Collection(['data' => [1, 2, 3]]);
             $collection2 = new Collection(['data' => [4, 5, 6, 7]]);
-            $collection->merge($collection2, true);
+            $collection->append($collection2);
 
-            expect($collection->values())->toBe([4, 5, 6, 7]);
+            expect($collection->values())->toBe([1, 2, 3, 4, 5, 6, 7]);
 
         });
 
