@@ -4,7 +4,7 @@ namespace Lead\Collection\Spec\Suite;
 use InvalidArgumentException;
 use Lead\Collection\Collection;
 
-use Kahlan\Plugin\Stub;
+use Kahlan\Plugin\Double;
 
 describe("Collection", function() {
 
@@ -24,11 +24,9 @@ describe("Collection", function() {
 
         beforeEach(function() {
             $this->collection = new Collection();
-            $class = Stub::classname();
+            $class = Double::classname();
 
-            Stub::on($class)->method('hello', function() {
-                return 'world';
-            });
+            allow($class)->toReceive('hello')->andReturn('world');
 
             for ($i = 0; $i < 5; $i++) {
                 $this->collection[] = new $class();
@@ -560,8 +558,8 @@ describe("Collection", function() {
 
         it("converts objects which support __toString", function() {
 
-            $stringable = Stub::classname();
-            Stub::on($stringable)->method('__toString')->andReturn('hello');
+            $stringable = Double::classname();
+            allow($stringable)->toReceive('__toString')->andReturn('hello');
             $collection = new Collection([new $stringable()]);
 
             expect($collection->to('array'))->toBe(['hello']);
@@ -570,7 +568,7 @@ describe("Collection", function() {
 
         it("converts objects using handlers", function() {
 
-            $handlable = Stub::classname();
+            $handlable = Double::classname();
             $handlers = [$handlable => function($value) { return 'world'; }];
             $collection = new Collection([new $handlable()]);
 
