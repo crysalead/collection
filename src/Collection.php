@@ -379,7 +379,7 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
      * @param  mixed $filter The callback to use for filtering, or an array of key/value pairs to match.
      * @return mixed         A collection of the filtered items.
      */
-    public function find($filter)
+    public function filter($filter)
     {
         $callback = is_array($filter) ? $this->_filterFromArray($filter) : $filter;
         $data = array_filter($this->_data, $callback);
