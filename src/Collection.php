@@ -338,6 +338,7 @@ class Collection implements \ArrayAccess, \Iterator, \Countable
      */
     public function rewind()
     {
+        $this->_skipNext = false;
         return reset($this->_data);
     }
 
